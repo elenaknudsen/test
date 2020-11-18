@@ -82,4 +82,4 @@ app.delete('/comment/:id', (req, res) => {
 })
 
 const port = 3030;
-app.listen(port, "0.0.0.0");
+app.listen(process.env.PORT || port, "0.0.0.0");
