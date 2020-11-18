@@ -1,5 +1,5 @@
 google.books.load();
-let baseUrl = "localhost:3030";
+let baseUrl = "https://badreadscomp426.herokuapp.com";
 
 export const renderBook = function(author, desc, image, isbn, title) {
     return '<div class="book row"><div class="column"><img src="'
@@ -48,7 +48,7 @@ export const handleBookPage = function(event) {
 export async function getCommentsByISBN(isbn) {
     const result = await axios ({
         method: 'get',
-        url: 'http://'+baseUrl+'/comment/isbn/'+isbn,
+        url: baseUrl+'/comment/isbn/'+isbn,
     }).then(response => {
         response.data.forEach(element => {
             $('#replace').append(renderReview(element.id, element.body));
@@ -59,7 +59,7 @@ export async function getCommentsByISBN(isbn) {
 export async function postReview(isbn, text) {
     const result = await axios({
         method: 'post',
-        url: 'http://'+baseUrl+'/comment',
+        url: baseUrl+'/comment',
         data: {
           author: "Anonymous",
           body: text,
@@ -71,14 +71,14 @@ export async function postReview(isbn, text) {
 export async function updateReview(id, text) {
     const result = await axios ({
         method: 'put',
-        url: 'http://'+baseUrl+'/comment/'+id,
+        url: baseUrl+'/comment/'+id,
         data: {
           body: text,
         }
     }).then(response =>$(".edit").replaceWith(renderReview(id, text)));
 }
 export async function deleteReview(id) {
-    let url = 'http://'+baseUrl+'/comment/'+id;
+    let url = baseUrl+'/comment/'+id;
     const result = await axios({
         method: 'delete',
         url: url,
